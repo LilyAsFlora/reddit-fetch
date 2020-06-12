@@ -35,8 +35,4 @@ async function redditFetch(obj) {
     });
 }
 
-redditFetch({
-    subreddit: 'memes'
-}).then(p => console.log(p));
-
 module.exports = redditFetch;
