@@ -2,24 +2,41 @@
 const nfetch = require('node-fetch');
 
 async function redditFetch(obj) {
-
-    const sub = obj.subreddit;
-    const sort = obj.sort || 'top';
-    const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`; 
-
     return new Promise((resolve, reject) => {
 
-        nfetch(targetURL).then(res => res.json())
-        .then(body => {
-            if (!body || !body.data) return reject(new Error('Unable to find a post.'));
-            let found = body.data.children;
+    if (!obj || !obj.subreddit)
+    return reject(new Error('Missing required arguments.'));
 
-            let randInt = Math.floor(Math.random() * found.length);
-            let post = found[randInt].data;
-            resolve(post);
+    if (typeof(obj.subreddit) !== 'string')
+    return reject(new TypeError('Invalid type, expected string.'));
+
+    const sub = obj.subreddit.toLowerCase();
+    const sort = obj.sort ? obj.sort.toLowerCase() : 'top';
+    const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
+
+    nfetch(targetURL).then(res => res.json())
+    .then(body => {
+        if (!body || !body.data) return reject(new Error('Unable to find a post.'));
+        let found = body.data.children;
+        
+        if (!obj.allowNSFW)
+        found = body.data.children.filter(p => !p.data.over_18);
+
+        if (!obj.allowModPost)
+        found = body.data.children.filter(p => !p.data.distinguished);
+
+        if (!found.length)
+        return reject(new Error('Unable to find a post which meets specified criteria.'));
+
+        let randInt = Math.floor(Math.random() * found.length);
+        let post = found[randInt].data;
+        resolve(post);
         });
-
     });
 }
+
+redditFetch({
+    subreddit: 'memes'
+}).then(p => console.log(p));
 
 module.exports = redditFetch;
