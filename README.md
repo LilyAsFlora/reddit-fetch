@@ -16,7 +16,6 @@ redditFetch({
 ```
 
 ## Options
-`subreddit` STRING | A valid reddit community, e.g 'pics' or 'popular'
-
-`sort` STRING | A valid reddit sorting option (best, hot, new, top or rising)
+-`subreddit` STRING | A valid reddit community, e.g 'pics' or 'popular'
+-`sort` STRING | A valid reddit sorting option (best, hot, new, top or rising)
 
