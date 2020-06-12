@@ -31,10 +31,10 @@ async function redditFetch(obj) {
         // Data will be checked to meet the criteria specified by the arguments
 
         if (!obj.allowNSFW)
-        found = body.data.children.filter(p => !p.data.over_18);
+        found = found.filter(p => !p.data.over_18);
 
         if (!obj.allowModPost)
-        found = body.data.children.filter(p => !p.data.distinguished);
+        found = found.filter(p => !p.data.distinguished);
 
         if (!found.length)
         return reject(new Error('Unable to find a post which meets specified criteria.'));
