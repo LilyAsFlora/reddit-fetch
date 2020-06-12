@@ -13,10 +13,16 @@ async function redditFetch(obj) {
 
     // Check for invalid/missing arguments
     if (!obj || !obj.subreddit)
-    return reject(new Error('Missing required arguments.'));
+    return reject(new Error('Missing required arguments. Must specify at least the subreddit.'));
 
     if (typeof(obj.subreddit) !== 'string')
     return reject(new TypeError('Invalid type, expected string.'));
+
+    if (obj.allowNSFW && typeof(obj.allowNSFW) !== 'boolean')
+    return reject(new TypeError('Invalid type, expected boolean.'));
+
+    if (obj.allowModPost && typeof(obj.allowModPost) !== 'boolean')
+    return reject(new TypeError('Invalid type, expected boolean.'));
 
     // Configuration & target URL
     const sub = obj.subreddit.toLowerCase();
