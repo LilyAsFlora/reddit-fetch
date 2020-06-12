@@ -15,7 +15,12 @@ redditFetch({
 });
 ```
 
+Returns a promise.
+
 ## Options
 - `subreddit` STRING | A valid reddit community, e.g 'pics' or 'popular'
 - `sort` STRING | A valid reddit sorting option (best, hot, new, top or rising)
+
+## Dependencies
+- `node-fetch` v2.6.0 ([LINK](https://www.npmjs.com/package/node-fetch))
 
