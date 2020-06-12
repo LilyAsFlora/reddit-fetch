@@ -1,5 +1,4 @@
 'use strict'
-
 const nfetch = require('node-fetch');
 
 async function redditFetch(obj) {
