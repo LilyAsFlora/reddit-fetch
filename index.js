@@ -3,7 +3,7 @@ const nfetch = require('node-fetch');
 
 async function redditFetch(obj) {
 
-    const sub = obj.subreddit.toLowerCase();
+    const sub = obj.subreddit;
     const sort = obj.sort || 'top';
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`; 
 
