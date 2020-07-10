@@ -20,10 +20,13 @@ redditFetch({
 Returns a promise.
 
 ## Options
-- `subreddit` STRING | A valid reddit community, e.g 'pics' or 'popular'
-- `sort` STRING | A valid reddit sorting option ('best', 'hot', 'new', 'top' or 'rising'). Default is 'top'.
-- `allowNSFW` BOOLEAN | Whether or not the returned post can be marked as NSFW. Default is false.
-- `allowModPost` BOOLEAN | Whether or not the returned post can be distinguished as moderator. Default is false.
+
+| FIELD          | TYPE          | DESCRIPTION | DEFAULT |
+| :------------- |:-------------:|:-----------:|:-------:|
+| subreddit      | string | an existing reddit community |
+| sort           | ?string      |   a valid reddit sorting option | top
+| allowNSFW      | ?boolean     |    whether or not the returned post can be marked as NSFW | false
+| allowModPost   | ?boolean     |    whether or not the returned post can be distinguished as a mod post | false
 
 ## Dependencies
 - `node-fetch` v2.6.0 ([LINK](https://www.npmjs.com/package/node-fetch))
