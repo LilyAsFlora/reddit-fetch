@@ -24,6 +24,9 @@ async function redditFetch(options) {
     if (options.allowModPost && typeof(options.allowModPost) !== 'boolean')
     return reject(new TypeError('Invalid type, expected boolean.'));
 
+    if (options.allowCrossPost && typeof(options.allowCrossPost) !== 'boolean')
+    return reject(new TypeError('Invalid type, expected boolean.'));
+
     // Configuration & target URL
     const sub = options.subreddit.toLowerCase();
     const sort = options.sort ? options.sort.toLowerCase() : 'top';
@@ -41,6 +44,9 @@ async function redditFetch(options) {
 
         if (!options.allowModPost)
         found = found.filter(p => !p.data.distinguished);
+
+        if (!options.allowCrossPost)
+        found = found.filter(p => !p.crosspost_parent_list);
 
         if (!found.length)
         return reject(new Error('Unable to find a post which meets specified criteria.'));
