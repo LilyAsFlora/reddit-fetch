@@ -11,6 +11,7 @@ redditFetch({
     sort: 'hot',
     allowNSFW: true,
     allowModPost: true,
+    allowCrossPost: true,
 
 }).then(post => {
     console.log(post);
@@ -27,6 +28,7 @@ Returns a promise.
 | sort           | ?string      |   a valid reddit sorting option | top
 | allowNSFW      | ?boolean     |    whether or not the returned post can be marked as NSFW | false
 | allowModPost   | ?boolean     |    whether or not the returned post can be distinguished as a mod post | false
+| allowCrossPost | ?boolean  | whether or not the returned post can be a crosspost | false
 
 ## Dependencies
 - `node-fetch` v2.6.0 ([LINK](https://www.npmjs.com/package/node-fetch))
