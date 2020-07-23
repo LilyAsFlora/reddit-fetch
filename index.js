@@ -46,7 +46,8 @@ async function redditFetch(options) {
         found = found.filter(p => !p.data.distinguished);
 
         if (!options.allowCrossPost)
-        found = found.filter(p => p.crosspost_parent_list === null);
+        found = found.filter(p => !p.data.crosspost_parent_list);
+
 
         if (!found.length)
         return reject(new Error('Unable to find a post which meets specified criteria.'));
