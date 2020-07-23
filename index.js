@@ -4,32 +4,42 @@ const nfetch = require('node-fetch');
 /**
  *  Makes a HTTP GET request to retrieve the specified subreddit's JSON data.
  *
- * @param {object} options Function parameters (see docs for info).
- * @return {Promise<object>} Promise
+ * @param {Object} options Function options.
+ * @param {string} options.subreddit The target subreddit to retrieve the post from.
+ * @param {string} options.sort The sorting option to search for data.
+ * @param {boolean?} [options.allowNSFW] Whether or not the returned post can be marked as NSFW.
+ * @param {boolean?} [options.allowModPost] Whether or not the returned post can be distinguished as a moderator post.
+ * @param {boolean?} [options.allowCrossPost] Whether or not the returned post can be a crosspost.
+ *
+ * @returns {Promise<object>} Promise that resolves to a JSON object value.
  */
 
-async function redditFetch(options) {
+async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost }) {
     return new Promise((resolve, reject) => {
 
-    // Check for invalid/missing arguments
-    if (!options || !options.subreddit)
-    return reject(new Error('Missing required arguments. Must specify at least the subreddit.'));
+    /* Check required argument */
+    if (!subreddit)
+    return reject(new Error('Missing required argument "subreddit"'));
 
-    if (typeof(options.subreddit) !== 'string')
-    return reject(new TypeError('Invalid type, expected string.'));
+    if (typeof(subreddit) !== 'string')
+    return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`))
 
-    if (options.allowNSFW && typeof(options.allowNSFW) !== 'boolean')
-    return reject(new TypeError('Invalid type, expected boolean.'));
+    /* Check types */
+    if (sort && typeof(sort) !== 'string')
+    return reject(new TypeError(`Expected type "string" but got "${typeof(sort)}"`));
 
-    if (options.allowModPost && typeof(options.allowModPost) !== 'boolean')
-    return reject(new TypeError('Invalid type, expected boolean.'));
+    if (allowNSFW && typeof(allowNSFW) !== 'boolean')
+    return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowNSFW)}"`));
 
-    if (options.allowCrossPost && typeof(options.allowCrossPost) !== 'boolean')
-    return reject(new TypeError('Invalid type, expected boolean.'));
+    if (allowModPost && typeof(allowModPost) !== 'boolean')
+    return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowModPost)}"`));
 
-    // Configuration & target URL
-    const sub = options.subreddit.toLowerCase();
-    const sort = options.sort ? options.sort.toLowerCase() : 'top';
+    if (allowCrossPost && typeof(allowCrossPost) !== 'boolean')
+    return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowCrossPost)}"`));
+
+    /* Configuration & target URL */
+    sort = sort.toLowerCase();
+    const sub = subreddit.toLowerCase();
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
     nfetch(targetURL).then(res => res.json())
@@ -37,22 +47,19 @@ async function redditFetch(options) {
         if (!body || !body.data) return reject(new Error('Unable to find a post.'));
         let found = body.data.children;
 
-        // Data will be checked to meet the criteria specified by the arguments
-
-        if (!options.allowNSFW)
+        if (!allowNSFW)
         found = found.filter(p => !p.data.over_18);
 
-        if (!options.allowModPost)
+        if (!allowModPost)
         found = found.filter(p => !p.data.distinguished);
 
-        if (!options.allowCrossPost)
+        if (!allowCrossPost)
         found = found.filter(p => !p.data.crosspost_parent_list);
 
-
         if (!found.length)
-        return reject(new Error('Unable to find a post which meets specified criteria.'));
+        return reject(new Error('Unable to find a post that meets specified criteria.'));
 
-        // Pick a random post from the array of allowed data
+        /* Pick random post from array of found data */
         let randInt = Math.floor(Math.random() * found.length);
         let post = found[randInt].data;
         resolve(post);
