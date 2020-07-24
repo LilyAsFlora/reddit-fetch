@@ -9,7 +9,7 @@
   "publishConfig": { "registry": "https://npm.pkg.github.com/" },
   "repository": {
     "type": "git",
-    "url": "https://github.com/aquamaru/reddit-fetch.git"
+    "url": "https://github.com/LilyAsFlora/reddit-fetch.git"
   },
   "keywords": [
     "node",
