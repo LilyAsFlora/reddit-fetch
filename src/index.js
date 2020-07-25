@@ -2,7 +2,7 @@
 const nfetch = require('node-fetch');
 
 /**
- *  Makes a HTTP GET request to retrieve the specified subreddit's JSON data.
+ *  Makes a HTTP GET request to retrieve JSON data from a post of the specified subreddit.
  *
  * @param {Object} options Function options.
  * @param {string} options.subreddit The target subreddit to retrieve the post from.
@@ -21,10 +21,10 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     if (!subreddit)
     return reject(new Error('Missing required argument "subreddit"'));
 
+    /* Validate options */
     if (typeof(subreddit) !== 'string')
     return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`))
 
-    /* Check types */
     if (sort && typeof(sort) !== 'string')
     return reject(new TypeError(`Expected type "string" but got "${typeof(sort)}"`));
 
@@ -45,6 +45,7 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     // @ts-ignore
     nfetch(targetURL).then(res => res.json())
     .then(body => {
+        /* Array of found submissions */
         let found = body.data.children;
 
         /* Apply options */
