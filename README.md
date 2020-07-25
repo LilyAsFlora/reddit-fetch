@@ -1,5 +1,13 @@
 # reddit-fetch
+
+![Downloads](https://img.shields.io/npm/dm/reddit-fetch)
+![Minified size](https://img.shields.io/bundlephobia/min/reddit-fetch)
+![Version](https://img.shields.io/github/package-json/v/LilyAsFlora/reddit-fetch)
+![License](https://img.shields.io/npm/l/reddit-fetch)
+
 A simple wrapper for fetching information from reddit posts.
+
+[NPM Package Link](https://npmjs.com/package/reddit-fetch/)
 
 [Reddit API Documentation](https://www.reddit.com/dev/api/)
 
