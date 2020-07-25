@@ -9,7 +9,7 @@
 
 A simple wrapper for fetching information from reddit posts.
 
-[NPM Package Link](https://npmjs.com/package/reddit-fetch/)
+[NPM Package](https://npmjs.com/package/reddit-fetch/)
 
 [Reddit API Documentation](https://www.reddit.com/dev/api/)
 
