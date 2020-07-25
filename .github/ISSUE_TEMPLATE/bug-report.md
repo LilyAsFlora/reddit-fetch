@@ -22,7 +22,7 @@ assignees: LilyAsFlora
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows]
  - Node version [e.g 12.18.3]
- - Package version [e.g. latest]
+ - Package version [e.g. 1.4.0]
 
 **Additional context**
 - Add any other context about the problem here.
