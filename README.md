@@ -5,6 +5,8 @@
 ![Version](https://img.shields.io/github/package-json/v/LilyAsFlora/reddit-fetch)
 ![License](https://img.shields.io/npm/l/reddit-fetch)
 
+[![NPM](https://nodei.co/npm/reddit-fetch.png)](https://nodei.co/npm/reddit-fetch/)
+
 A simple wrapper for fetching information from reddit posts.
 
 [NPM Package Link](https://npmjs.com/package/reddit-fetch/)
