@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Sugggest an idea for the project!
+about: Suggest an idea for the project!
 title: ''
 labels: enhancement
 assignees: LilyAsFlora
