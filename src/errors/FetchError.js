@@ -12,3 +12,5 @@ class FetchError extends Error {
         this.name = 'FetchError';
     };
 };
+
+module.exports = FetchError;
