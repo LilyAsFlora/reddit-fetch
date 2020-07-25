@@ -18,7 +18,7 @@ redditFetch({
 });
 ```
 
-Returns a promise.
+Returns a promise that resolves to a JSON object (`Promise<object>`).
 
 ## Options
 
@@ -28,7 +28,9 @@ Returns a promise.
 | sort           | ?string      |   a valid reddit sorting option | top
 | allowNSFW      | ?boolean     |    whether or not the returned post can be marked as NSFW | false
 | allowModPost   | ?boolean     |    whether or not the returned post can be distinguished as a mod post | false
-| allowCrossPost | ?boolean  | whether or not the returned post can be a crosspost | false
+| allowCrossPost | ?boolean  | whether or not the returned post can be a crosspost | 
+
+
 
 ## Dependencies
 - `node-fetch` v2.6.0 ([LINK](https://www.npmjs.com/package/node-fetch))
