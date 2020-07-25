@@ -8,16 +8,16 @@ assignees: LilyAsFlora
 ---
 
 **Explain the problem**
-A detailed, clear summary of what the issue is.
+- A detailed, clear summary of what the issue is.
 
 **To Reproduce**
-A list of detailed steps to reproduce the behavior:
+- List of detailed steps to reproduce the behavior:
 
 **Expected behavior**
-A clear and concise description of what you expected to happen.
+- Clear and concise description of what you expected to happen.
 
 **Screenshots**
-If applicable, add screenshots to help explain your problem.
+- If applicable, add screenshots to help explain your problem.
 
 **Desktop (please complete the following information):**
  - OS: [e.g. Windows]
@@ -25,4 +25,4 @@ If applicable, add screenshots to help explain your problem.
  - Package version [e.g. latest]
 
 **Additional context**
-Add any other context about the problem here.
+- Add any other context about the problem here.
