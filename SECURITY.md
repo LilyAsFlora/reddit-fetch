@@ -10,6 +10,6 @@
 
 ## Reporting a Vulnerability
 
-Open an issue at https://github.com/LilyAsFlora/reddit-fetch/issues with the `security` label.
+Open an issue at https://github.com/LilyAsFlora/reddit-fetch/issues.
 You may expect the vulnerability to be acted on within a week.
 
