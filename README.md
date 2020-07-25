@@ -1,6 +1,8 @@
 # reddit-fetch
 A simple wrapper for fetching information from reddit posts.
 
+[Reddit API Documentation](https://www.reddit.com/dev/api/)
+
 ## Usage & Example
 ```
 const redditFetch = require('reddit-fetch');
