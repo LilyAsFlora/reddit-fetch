@@ -11,10 +11,14 @@
     "url": "https://github.com/LilyAsFlora/reddit-fetch.git"
   },
   "keywords": [
+    "node-fetch",
     "node",
     "reddit",
     "fetch",
-    "json"
+    "json",
+    "api",
+    "request",
+    "response"
   ],
   "author": "lilielilie",
   "license": "MIT",
