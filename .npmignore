@@ -1,0 +1,12 @@
+# Editor settings
+jsconfig.json
+
+# Packages
+node_modules/
+
+# GitHub files
+CONTRIBUTING.md
+SECURITY.md
+.gitignore
+.github/
+_config.yml
