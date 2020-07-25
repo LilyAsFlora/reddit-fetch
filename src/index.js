@@ -1,4 +1,5 @@
 'use strict'
+const FetchError = require('./errors/FetchError.js');
 const nfetch = require('node-fetch');
 
 /**
@@ -59,7 +60,7 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         found = found.filter(p => !p.data.crosspost_parent_list);
 
         if (!found.length)
-        return reject(new Error('Unable to find a post that meets specified criteria.'));
+        return reject(new FetchError('Unable to find a post that meets specified criteria.'));
 
         /* Pick random post from array of found data */
         let randInt = Math.floor(Math.random() * found.length);
@@ -67,6 +68,6 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         resolve(post);
         });
     });
-}
+};
 
 module.exports = redditFetch;
