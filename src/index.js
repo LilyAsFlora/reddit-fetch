@@ -45,7 +45,6 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     // @ts-ignore
     nfetch(targetURL).then(res => res.json())
     .then(body => {
-        if (!body || !body.data) return reject(new Error('Unable to find a post.'));
         let found = body.data.children;
 
         /* Apply options */
