@@ -24,7 +24,7 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
 
     /* Validate options */
     if (typeof(subreddit) !== 'string')
-    return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`))
+    return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`));
 
     if (sort && typeof(sort) !== 'string')
     return reject(new TypeError(`Expected type "string" but got "${typeof(sort)}"`));
