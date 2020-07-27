@@ -1,4 +1,3 @@
-'use strict'
 const FetchError = require('./errors/FetchError.js');
 const nfetch = require('node-fetch');
 
