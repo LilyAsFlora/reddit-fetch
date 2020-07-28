@@ -56,6 +56,8 @@ redditFetch({
 - Data returned has all sorts of boolean values you can check to determine further what kind of post you're looking for.
 - See contribution guidelines at [CONTRIBUTING.md](https://github.com/LilyAsFlora/reddit-fetch/blob/master/CONTRIBUTING.md)
 
+By default, the Reddit JSON API should **not** return any removed or deleted posts, though please report an issue if this happens.
+
 ## Dependencies
 - [node-fetch v2.6.0](https://www.npmjs.com/package/node-fetch)
 
