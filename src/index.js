@@ -14,14 +14,16 @@ const nfetch = require('node-fetch');
  * @returns {Promise<object>} Promise that resolves to a JSON object value.
  */
 
+ /* Asynchronous functions allow writing promise-based code as if it were synchronous, but without blocking the main thread */
 async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost }) {
     return new Promise((resolve, reject) => {
 
-    /* Check required argument */
+    /* Check required argument 'subreddit' */
     if (!subreddit)
     return reject(new Error('Missing required argument "subreddit"'));
 
-    /* Validate options */
+    /* Validate the options */
+    // TODO: Find a better way to validate the options
     if (typeof(subreddit) !== 'string')
     return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`));
 
@@ -37,18 +39,21 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     if (allowCrossPost && typeof(allowCrossPost) !== 'boolean')
     return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowCrossPost)}"`));
 
-    /* Configuration & target URL */
+    /* Convert sorting options & subreddit to lowercase
+    (we've already confirmed that 'sort' and 'subreddit' are type string) */
     sort = sort.toLowerCase();
     const sub = subreddit.toLowerCase();
+    /* Target URL to make the hypertext transfer protocol request */
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
+    /* Expression not callable? */
     // @ts-ignore
     nfetch(targetURL).then(res => res.json())
     .then(body => {
-        /* Array of found submissions */
+        /* Array of found posts */
         let found = body.data.children;
 
-        /* Apply options */
+        /* Apply options by filtering the array */
         if (!allowNSFW)
         found = found.filter(p => !p.data.over_18);
 
@@ -58,10 +63,12 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         if (!allowCrossPost)
         found = found.filter(p => !p.data.crosspost_parent_list);
 
+        /* Reject the promise if the found array has no elements */
         if (!found.length)
         return reject(new FetchError('Unable to find a post that meets specified criteria.'));
 
-        /* Pick random post from array of found data */
+        /* Get a random post from the array of found data
+        ! (the random integer chosen is NOT cryptographically secure) */
         let randInt = Math.floor(Math.random() * found.length);
         let post = found[randInt].data;
         resolve(post);
