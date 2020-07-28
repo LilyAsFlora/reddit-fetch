@@ -1,5 +1,5 @@
 const FetchError = require('./errors/FetchError.js');
-const fetch = require('node-fetch');
+const nfetch = require('node-fetch');
 
 /**
  *  Makes a HTTP GET request to retrieve JSON data from a post of the specified subreddit.
@@ -43,7 +43,7 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
     // @ts-ignore
-    fetch(targetURL).then(res => res.json())
+    nfetch(targetURL).then(res => res.json())
     .then(body => {
         /* Array of found submissions */
         let found = body.data.children;
