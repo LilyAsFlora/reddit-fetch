@@ -6,7 +6,7 @@ const nfetch = require('node-fetch');
  *
  * @param {Object} options Function options.
  * @param {string} options.subreddit The target subreddit to retrieve the post from.
- * @param {string} options.sort The sorting option to search for data.
+ * @param {string?} [options.sort] The sorting option to search for data.
  * @param {boolean?} [options.allowNSFW] Whether or not the returned post can be marked as NSFW.
  * @param {boolean?} [options.allowModPost] Whether or not the returned post can be distinguished as a moderator post.
  * @param {boolean?} [options.allowCrossPost] Whether or not the returned post can be a crosspost.
@@ -68,5 +68,6 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         });
     });
 };
+
 
 module.exports = redditFetch;
