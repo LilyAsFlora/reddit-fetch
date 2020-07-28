@@ -2,7 +2,7 @@ const FetchError = require('./errors/FetchError.js');
 const nfetch = require('node-fetch');
 
 /**
- *  Makes a HTTP GET request to retrieve JSON data from a post of the specified subreddit.
+ *  Makes a hypertext transfer protocol (HTTP) GET request to retrieve JSON data from a post of the specified subreddit.
  *
  * @param {Object} options Function options.
  * @param {string} options.subreddit The target subreddit to retrieve the post from.
@@ -43,10 +43,11 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     (we've already confirmed that 'sort' and 'subreddit' are type string) */
     sort = sort.toLowerCase();
     const sub = subreddit.toLowerCase();
-    /* Target URL to make the hypertext transfer protocol request */
+    /* Target URL to make the HTTP request */
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
-    /* Expression not callable? */
+    // ! Expression not callable?
+    // TODO
     // @ts-ignore
     nfetch(targetURL).then(res => res.json())
     .then(body => {
