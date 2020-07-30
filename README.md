@@ -7,11 +7,7 @@
 
 [![NPM](https://nodei.co/npm/reddit-fetch.png)](https://nodei.co/npm/reddit-fetch/)
 
-A simple wrapper for fetching information from reddit posts.
-
-- [NPM Package](https://npmjs.com/package/reddit-fetch/)
-
-- [Reddit API Documentation](https://www.reddit.com/dev/api/)
+A simple, fast wrapper for fetching information from [reddit](https://reddit.com/) posts.
 
 ## Usage & Example
 ```
@@ -30,18 +26,6 @@ redditFetch({
 });
 ```
 
-## Function details
-- Returns a promise that resolves to a JSON object (`Promise<object>`). 
-- Unhandled rejections can be caught and handled:
-```
-...
-}).then(post => {
-    // Use post data
-}).catch(e => {
-    console.error(`Promise rejection: ${e}`);
-});
-```
-
 ## Options
 
 | FIELD          | TYPE          | DESCRIPTION                                                         | DEFAULT |
@@ -52,14 +36,26 @@ redditFetch({
 | allowModPost   | ?boolean      | whether or not the returned post can be distinguished as a mod post | false   |
 | allowCrossPost | ?boolean      | whether or not the returned post can be a crosspost                 | false   |
 
-## Tips & Tricks
-- Data returned has all sorts of boolean values you can check to determine further what kind of post you're looking for.
-- See contribution guidelines at [CONTRIBUTING.md](https://github.com/LilyAsFlora/reddit-fetch/blob/master/CONTRIBUTING.md)
+## Function details
+- Returns a promise that resolves to a JSON object (`Promise<object>`). 
+- By default, the Reddit JSON API should **not** return any removed or deleted posts, though please report an issue if this happens.
+- Unhandled rejections can be caught and handled:
+```
+...
+}).then(post => {
+    // Use post data
+}).catch(e => {
+    console.error(`Promise rejection: ${e}`);
+});
+```
 
-By default, the Reddit JSON API should **not** return any removed or deleted posts, though please report an issue if this happens.
-
-## Dependencies
-- [node-fetch v2.6.0](https://www.npmjs.com/package/node-fetch)
+## Additional Links
+- [NPM Package](https://npmjs.com/package/reddit-fetch/)
+- [Reddit API Documentation](https://www.reddit.com/dev/api/)
+- [Handling promise rejections](https://javascript.info/promise-error-handling)
+- [Using promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+- [Reasons to switch to Deno](https://dev.to/victorandcode/should-i-be-using-deno-instead-of-node-js-4h67)
+- [JavaScript property accessors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)
 
 ***
 Made with <3 by Lily 
