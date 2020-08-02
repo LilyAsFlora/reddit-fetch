@@ -2,7 +2,7 @@ const FetchError = require('./errors/FetchError.js');
 const nfetch = require('node-fetch');
 
 /**
- *  Makes a hypertext transfer protocol (HTTP) GET request to retrieve JSON data from a post of the specified subreddit.
+ *  Makes a HTTP GET request to retrieve JSON data from a post of the specified subreddit.
  *
  * @param {Object} options Function options.
  * @param {string} options.subreddit The target subreddit to retrieve the post from.
