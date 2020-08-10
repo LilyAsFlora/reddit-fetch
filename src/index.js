@@ -4,12 +4,12 @@ const nfetch = require('node-fetch');
 /**
  *  Makes a HTTP GET request to retrieve JSON data from a post of the specified subreddit.
  *
- * @param {Object} options Function options.
- * @param {string} options.subreddit The target subreddit to retrieve the post from.
- * @param {string?} [options.sort] The sorting option to search for data.
- * @param {boolean?} [options.allowNSFW] Whether or not the returned post can be marked as NSFW.
- * @param {boolean?} [options.allowModPost] Whether or not the returned post can be distinguished as a moderator post.
- * @param {boolean?} [options.allowCrossPost] Whether or not the returned post can be a crosspost.
+ * @param {Object} options - Function options.
+ * @param {string} options.subreddit - The target subreddit to retrieve the post from.
+ * @param {string?} [options.sort] - The sorting option to search for data.
+ * @param {boolean?} [options.allowNSFW] - Whether or not the returned post can be marked as NSFW.
+ * @param {boolean?} [options.allowModPost] - Whether or not the returned post can be distinguished as a moderator post.
+ * @param {boolean?} [options.allowCrossPost] - Whether or not the returned post can be a crosspost.
  *
  * @returns {Promise<object>} Promise that resolves to a JSON object value.
  */
@@ -18,11 +18,11 @@ const nfetch = require('node-fetch');
 async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost }) {
     return new Promise((resolve, reject) => {
 
-    /* Check required argument 'subreddit' */
+    /* Check required argument */
     if (!subreddit)
     return reject(new Error('Missing required argument "subreddit"'));
 
-    /* Validate the options */
+    /* Validate options */
     // TODO: Find a better way to validate the options
     if (typeof(subreddit) !== 'string')
     return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`));
@@ -39,11 +39,11 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     if (allowCrossPost && typeof(allowCrossPost) !== 'boolean')
     return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowCrossPost)}"`));
 
-    /* Convert sorting options & subreddit to lowercase
-    (we've already confirmed that 'sort' and 'subreddit' are type string) */
+    /* Sorting options & subreddit to lowercase */
     sort = sort.toLowerCase();
-    const sub = subreddit.toLowerCase();
-    /* Target URL to make the HTTP request */
+	const sub = subreddit.toLowerCase();
+
+    /* Target URL for the request */
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
     // ! Expression not callable?
@@ -52,7 +52,10 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     nfetch(targetURL).then(res => res.json())
     .then(body => {
         /* Array of found posts */
-        let found = body.data.children;
+		let found = body.data.children;
+
+		if (!found.length)
+        return reject(new FetchError(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`));
 
         /* Apply options by filtering the array */
         if (!allowNSFW)
@@ -64,18 +67,16 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         if (!allowCrossPost)
         found = found.filter(p => !p.data.crosspost_parent_list);
 
-        /* Reject the promise if the found array has no elements */
+        /* Reject if the found array has no elements */
         if (!found.length)
-        return reject(new FetchError('Unable to find a post that meets specified criteria.'));
+        return reject(new FetchError('Unable to find a post that meets specified criteria. There may be an error in the options passed in.'));
 
-        /* Get a random post from the array of found data
-        ! (the random integer chosen is NOT cryptographically secure) */
+        /* Get a random post from the array of found data */
         let randInt = Math.floor(Math.random() * found.length);
         let post = found[randInt].data;
         resolve(post);
         });
     });
 };
-
 
 module.exports = redditFetch;
