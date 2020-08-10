@@ -24,5 +24,8 @@
   "license": "MIT",
   "dependencies": {
     "node-fetch": "^2.6.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0"
   }
 }
