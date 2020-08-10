@@ -10,7 +10,7 @@ class FetchError extends Error {
         super();
         this.message = message;
         this.name = 'FetchError';
-    };
-};
+    }
+}
 
 module.exports = FetchError;
