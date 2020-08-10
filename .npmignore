@@ -10,3 +10,6 @@ SECURITY.md
 .gitignore
 .github/
 _config.yml
+
+# ESLint configuration file
+.eslintrc.json
