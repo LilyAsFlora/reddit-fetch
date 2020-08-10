@@ -46,15 +46,14 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
     /* Target URL for the request */
     const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
-    // ! Expression not callable?
-    // TODO
     // @ts-ignore
     nfetch(targetURL).then(res => res.json())
     .then(body => {
-        /* Array of found posts */
-	let found = body.data.children;
 
-	if (!found.length)
+        /* Array of found posts */
+		let found = body.data.children;
+
+		if (!found.length)
         return reject(new FetchError(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`));
 
         /* Apply options by filtering the array */
@@ -73,8 +72,8 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
 
         /* Get a random post from the array of found data */
         let randInt = Math.floor(Math.random() * found.length);
-        let post = found[randInt].data;
-        resolve(post);
+		resolve(found[randInt].data);
+
         });
     });
 };
