@@ -3,14 +3,14 @@
  * @extends {Error}
  */
 class FetchError extends Error {
-	/**
-	 * @param {string} message The error message.
-	 */
-	constructor(message) {
-		super();
-		this.message = message;
-		this.name = 'FetchError';
-	};
+    /**
+     * @param {string} message The error message.
+     */
+    constructor(message) {
+        super();
+        this.message = message;
+        this.name = 'FetchError';
+    };
 };
 
 module.exports = FetchError;
