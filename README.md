@@ -7,7 +7,7 @@
 
 [![NPM](https://nodei.co/npm/reddit-fetch.png)](https://nodei.co/npm/reddit-fetch/)
 
-A simple, fast wrapper for fetching information from [reddit](https://reddit.com/) posts.
+A simple, fast wrapper for fetching information from reddit posts.
 
 ## Usage & Example
 ```
@@ -22,7 +22,7 @@ redditFetch({
     allowCrossPost: true,
 
 }).then(post => {
-    console.log(post);
+    console.table(post);
 });
 ```
 
@@ -38,7 +38,7 @@ redditFetch({
 
 ## Function details
 - Returns a promise that resolves to a JSON object (`Promise<object>`). 
-- By default, the Reddit JSON API should **not** return any removed or deleted posts, though please report an issue if this happens.
+- By default, the Reddit JSON API should not return any removed or deleted posts.
 - Unhandled rejections can be caught and handled:
 ```
 ...
