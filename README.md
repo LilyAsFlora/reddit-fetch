@@ -36,7 +36,7 @@ redditFetch({
 | allowNSFW      | ?boolean      | whether or not the returned post can be marked as NSFW              | false   |
 | allowModPost   | ?boolean      | whether or not the returned post can be distinguished as a mod post | false   |
 | allowCrossPost | ?boolean      | whether or not the returned post can be a crosspost                 | false   |
-| allowVideo | ?boolean | whether or not the returned post can be a boolean | false |
+| allowVideo | ?boolean | whether or not the returned post can be a video | false |
 
 ## Function details
 - Returns a promise that resolves to a JSON object (`Promise<object>`).
