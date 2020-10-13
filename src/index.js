@@ -10,12 +10,13 @@ const nfetch = require('node-fetch');
  * @param {boolean?} [options.allowNSFW] - Whether or not the returned post can be marked as NSFW.
  * @param {boolean?} [options.allowModPost] - Whether or not the returned post can be distinguished as a moderator post.
  * @param {boolean?} [options.allowCrossPost] - Whether or not the returned post can be a crosspost.
+ * @param {boolean?} [options.allowVideo] - Whether or not the returned post can be a video.
  *
  * @returns {Promise<object>} Promise that resolves to a JSON object value.
  */
 
 /* Asynchronous functions allow writing promise-based code as if it were synchronous, but without blocking the main thread */
-async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost }) {
+async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost, allowVideo }) {
     return new Promise((resolve, reject) => {
 
         /* Check required argument */
@@ -38,6 +39,9 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
 
         if (allowCrossPost && typeof(allowCrossPost) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowCrossPost)}"`));
+
+        if (allowVideo && typeof(allowVideo) !== 'boolean')
+            return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowVideo)}"`));
 
         /* Sorting options & subreddit to lowercase */
         sort = sort.toLowerCase();
@@ -65,6 +69,9 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
 
                 if (!allowCrossPost)
                     found = found.filter(p => !p.data.crosspost_parent_list);
+
+                if (!allowVideo)
+                    found = found.filter(p => !p.is_video);
 
                 /* Reject if the found array has no elements */
                 if (!found.length)
