@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * reddit-fetch v0.5.0 by Lily
+ * reddit-fetch v1.5.0 by Lily
  *
  * @see https://github.com/LilyAsFlora/reddit-fetch/blob/master/src/index.js
  * @see https://www.npmjs.com/package/reddit-fetch
