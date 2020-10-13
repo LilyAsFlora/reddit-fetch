@@ -20,6 +20,7 @@ redditFetch({
     allowNSFW: true,
     allowModPost: true,
     allowCrossPost: true,
+    allowVideo: true
 
 }).then(post => {
     console.table(post);
@@ -35,9 +36,10 @@ redditFetch({
 | allowNSFW      | ?boolean      | whether or not the returned post can be marked as NSFW              | false   |
 | allowModPost   | ?boolean      | whether or not the returned post can be distinguished as a mod post | false   |
 | allowCrossPost | ?boolean      | whether or not the returned post can be a crosspost                 | false   |
+| allowVideo | ?boolean | whether or not the returned post can be a boolean | false |
 
 ## Function details
-- Returns a promise that resolves to a JSON object (`Promise<object>`). 
+- Returns a promise that resolves to a JSON object (`Promise<object>`).
 - By default, the Reddit JSON API should not return any removed or deleted posts.
 - Unhandled rejections can be caught and handled:
 ```
@@ -58,4 +60,4 @@ redditFetch({
 - [JavaScript property accessors](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Property_accessors)
 
 ***
-Made with <3 by Lily 
+Made with <3 by Lily :)
