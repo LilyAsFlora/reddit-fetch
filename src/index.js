@@ -75,7 +75,7 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
                 // If no post data could be found it's likely that the subreddit does not exist or it has no submissions.
 
                 if (!found.length)
-                    return reject(new FetchError(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`));
+                    return reject(new FetchError(`Unable to find a post. The subreddit "${subreddit}" does not exist, or it has no available post data.`));
 
                 // Apply options by filtering the array for data with specific values.
                 // These values can be any type, though most commonly boolean.
