@@ -15,52 +15,64 @@ const nfetch = require('node-fetch');
  * @returns {Promise<object>} Promise that resolves to a JSON object value.
  */
 
-/* Asynchronous functions allow writing promise-based code as if it were synchronous, but without blocking the main thread */
 async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost, allowVideo }) {
     return new Promise((resolve, reject) => {
 
-        /* Check required argument */
+        // Check required subreddit argument
         if (!subreddit)
             return reject(new Error('Missing required argument "subreddit"'));
 
-        /* Validate options */
-        // TODO: Find a better way to validate the options
+        // Validate remaining options
+
+        // SUBREDDIT
         if (typeof(subreddit) !== 'string')
             return reject(new TypeError(`Expected type "string" but got "${typeof(subreddit)}"`));
 
+        // SORT
         if (sort && typeof(sort) !== 'string')
             return reject(new TypeError(`Expected type "string" but got "${typeof(sort)}"`));
 
+        // ALLOWNSFW
         if (allowNSFW && typeof(allowNSFW) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowNSFW)}"`));
 
+        // ALLOWMODPOST
         if (allowModPost && typeof(allowModPost) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowModPost)}"`));
 
+        // ALLOWCROSSPOST
         if (allowCrossPost && typeof(allowCrossPost) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowCrossPost)}"`));
 
+        // ALLOW VIDEO
         if (allowVideo && typeof(allowVideo) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowVideo)}"`));
 
-        /* Sorting options & subreddit to lowercase */
+        // Sorting options & subreddit to lowercase
         sort = sort.toLowerCase();
         const sub = subreddit.toLowerCase();
 
-        /* Target URL for the request */
+        // Target URL for the GET request
         const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
 
         // @ts-ignore
         nfetch(targetURL).then(res => res.json())
             .then(body => {
 
-                /* Array of found posts */
+                // Array of found posts.
+                // Each element should be a large object of returned, unfiltered post data.
+
                 let found = body.data.children;
+
+                // Reject if no posts were found.
+                // If no post data could be found it's likely that the subreddit does not exist or it has no submissions.
 
                 if (!found.length)
                     return reject(new FetchError(`Unable to find a post. The subreddit "${sub}" does not exist, or it has no available post data.`));
 
-                /* Apply options by filtering the array */
+                // Apply options by filtering the array for data with specific values.
+                // These values can be any type, though most commonly boolean.
+
                 if (!allowNSFW)
                     found = found.filter(p => !p.data.over_18);
 
@@ -73,11 +85,15 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
                 if (!allowVideo)
                     found = found.filter(p => !p.is_video);
 
-                /* Reject if the found array has no elements */
+                // Reject if the found array has no elements.
+                // Nothing was found that suits the options specified.
+
                 if (!found.length)
                     return reject(new FetchError('Unable to find a post that meets specified criteria. There may be an error in the options passed in.'));
 
-                /* Get a random post from the array of found data */
+                // Get a random post object from the array of found data.
+                // This data will be resolved and returned through the promise.
+
                 let randInt = Math.floor(Math.random() * found.length);
                 resolve(found[randInt].data);
 
