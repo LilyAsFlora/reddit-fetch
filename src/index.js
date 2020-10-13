@@ -18,11 +18,14 @@ const nfetch = require('node-fetch');
 async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost, allowVideo }) {
     return new Promise((resolve, reject) => {
 
-        // Check required subreddit argument
+        // Check the required 'subreddit' argument.
+        // This argument must be given for the fetch to work.
+
         if (!subreddit)
             return reject(new Error('Missing required argument "subreddit"'));
 
-        // Validate remaining options
+        // Validate the remaining options.
+        // Ideally, all of these should be passed in as booleans.
 
         // SUBREDDIT
         if (typeof(subreddit) !== 'string')
@@ -32,15 +35,15 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         if (sort && typeof(sort) !== 'string')
             return reject(new TypeError(`Expected type "string" but got "${typeof(sort)}"`));
 
-        // ALLOWNSFW
+        // ALLOW NSFW
         if (allowNSFW && typeof(allowNSFW) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowNSFW)}"`));
 
-        // ALLOWMODPOST
+        // ALLOW MOD POST
         if (allowModPost && typeof(allowModPost) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowModPost)}"`));
 
-        // ALLOWCROSSPOST
+        // ALLOW CROSSPOST
         if (allowCrossPost && typeof(allowCrossPost) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowCrossPost)}"`));
 
@@ -48,12 +51,16 @@ async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, a
         if (allowVideo && typeof(allowVideo) !== 'boolean')
             return reject(new TypeError(`Expected type "boolean" but got "${typeof(allowVideo)}"`));
 
-        // Sorting options & subreddit to lowercase
+        // Convert sorting option & subreddit option to lowercase.
+        // This is primarily for the target URL to make the request to.
+
         sort = sort.toLowerCase();
-        const sub = subreddit.toLowerCase();
+        subreddit = subreddit.toLowerCase();
 
         // Target URL for the GET request
-        const targetURL = `https://reddit.com/r/${sub}.json?sort=${sort}&t=week`;
+        // This is where the main fetch function will grab data.
+
+        const targetURL = `https://reddit.com/r/${subreddit}.json?sort=${sort}&t=week`;
 
         // @ts-ignore
         nfetch(targetURL).then(res => res.json())
