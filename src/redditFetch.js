@@ -14,7 +14,7 @@ const fetch = require('node-fetch');
  * @param {boolean?} [options.allowCrossPost] - Whether or not the returned post can be a crosspost.
  * @param {boolean?} [options.allowVideo] - Whether or not the returned post can be a video.
  *
- * @returns {Promise<object>} Promise that resolves to a JSON object value.
+ * @returns {Promise<object>} Promise that resolves to a JSONArray object value.
  */
 
 module.exports = async function redditFetch({ subreddit, sort = 'top', allowNSFW, allowModPost, allowCrossPost, allowVideo }) {
@@ -100,11 +100,9 @@ module.exports = async function redditFetch({ subreddit, sort = 'top', allowNSFW
                 if (!found.length)
                     return reject(new FetchError('Unable to find a post that meets specified criteria. There may be an error in the options passed in.'));
 
-                // Get a random post object from the array of found data.
-                // This data will be resolved and returned through the promise.
-
-                let randInt = Math.floor(Math.random() * found.length);
-                resolve(found[randInt].data);
+                // Get the array of found data.
+                // This array will be resolved and returned through the promise.
+                resolve(found);
 
             });
     });
