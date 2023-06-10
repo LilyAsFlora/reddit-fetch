@@ -9,6 +9,12 @@
 
 A simple, fast wrapper for fetching information from reddit posts.
 
+## Status
+
+This package is **deprecated**, and I'm no longer fixing bugs. Please use [justreddit](https://npmjs.com/package/justreddit) instead.
+
+You can fork the project if you wish to develop it further.
+
 ## Usage & Example
 ```
 const redditFetch = require('reddit-fetch');
